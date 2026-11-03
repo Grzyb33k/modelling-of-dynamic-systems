@@ -6,7 +6,7 @@ platforms = ["linux-64"]
 version = "0.1.0"
 
 [tasks]
-lab02 = "quarto render lab02/lab02.ipynb --to pdf --execute"
+lab02 = "quarto render lab02/lab02.ipynb --to pdf"
 lab03 = "quarto render lab03/lab03.ipynb --to pdf"
 lab04 = "quarto render lab04/lab04.ipynb --to pdf"
 
