@@ -222,3 +222,14 @@ __marimo__/
 # Pdf created by quarto
 /lab*/*.pdf
 !/lab*/docs/*.pdf
+
+# Quarto files
+.quarto/
+*_files/
+*_cache/
+/lab*/*.html
+
+
+# Zip files
+/lab*/*.zip
+/lab*/*.rar

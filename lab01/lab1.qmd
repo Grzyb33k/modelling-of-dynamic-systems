@@ -1,0 +1,242 @@
+---
+title: "Laboratorium 1"
+subtitle: "Modelowanie układów dynamicznych"
+author: "Kamil Kania"
+date: today
+format:
+  html:
+    toc: true
+    theme: cosmo
+    code-fold: false
+  pdf:
+    pdf-engine: pdflatex
+    documentclass: article
+    geometry:
+      - top=20mm
+      - bottom=20mm
+      - left=20mm
+      - right=20mm
+    colorlinks: true
+execute:
+  echo: true
+  warning: false
+---
+
+# Zadanie 1
+
+## Wzór
+$$
+y(x) = \frac{-1}{x - \frac{1}{y_0}}
+$$
+
+Rozwiązanie analityczne przyjmuje postać:
+
+```{python}
+#| echo: false
+import numpy as np
+import matplotlib.pyplot as plt
+
+def fa(x, y0):
+    return - 1 / (x - 1 / y0)
+
+x = np.linspace(0, 1, 100)
+
+fig, ax = plt.subplots(dpi=150)
+
+y0_arr = [-2, -1, 1, 2]
+
+for y0 in y0_arr:
+    ax.plot(x, fa(x, y0), label=f"$y_0 = $ {y0}", lw=1.0)
+
+ax.set_xlim(0, 1)
+ax.set_ylim(-10, 10)
+ax.set_xlabel("$x$")
+ax.set_ylabel("$y$")
+
+plt.legend()
+
+
+plt.show()
+```
+
+# Zadanie 2
+
+## Metoda RK4
+
+### Rozwiązanie numeryczne
+
+```{python}
+#| output: true
+
+from scipy.integrate import solve_ivp
+
+fig, ax = plt.subplots(dpi=150)
+
+def f(x, y):
+    return y **2
+
+y0_arr = [-2, -1, 1, 2]
+rtol = 1e-6
+atol = 1e-3
+max_step = 0.001
+x_range = [0, 1]
+
+sol_dict = {}
+
+for y0 in y0_arr:
+    sol = solve_ivp(f, x_range, [y0], method="RK45", rtol=rtol, atol=atol, max_step=max_step)
+
+    ax.plot(sol.t, sol.y[0], label=f"$y_0 = $ {y0}", lw=1.0)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(-3, 10)
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$y$")
+    sol_dict[y0] = sol
+
+plt.legend()
+
+```
+
+### Porównanie błędów - błąd bezwzględny
+
+```{python}
+#| echo: false
+
+
+fig, ax = plt.subplots(dpi=200)
+
+for y0 in y0_arr:
+    solution = sol_dict[y0]
+
+    x = solution.t
+
+    y_analytical = fa(x, y0)
+    y_numerical = solution.y[0]
+
+    
+
+    ax.plot(x, abs(y_analytical - y_numerical), label=f"$y_0 = $ {y0}", lw=1.0)
+
+    ax.set_xlim(0, 1)
+    ax.set_yscale("log")
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$|y_{analytical} - y_{numerical}|$")
+    
+plt.legend()
+```
+### Błąd względny
+
+```{python}
+#| echo: false
+
+
+fig, ax = plt.subplots(dpi=200)
+
+for y0 in y0_arr:
+    solution = sol_dict[y0]
+
+    x = solution.t
+
+    y_analytical = fa(x, y0)
+    y_numerical = solution.y[0]
+
+    
+
+    ax.plot(x, abs((y_analytical - y_numerical) / y_analytical), label=f"$y_0 = $ {y0}", lw=1.0)
+
+    ax.set_yscale("log")
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$|(y_{analytical} - y_{numerical}) / y_{analytical}|$ [%]")
+    
+plt.legend()
+```
+
+## Metoda rk8pd
+
+### Rozwiązanie numeryczne
+
+```{python}
+#| output: true
+
+from scipy.integrate import solve_ivp
+
+fig, ax = plt.subplots(dpi=150)
+
+def f(x, y):
+    return y **2
+
+y0_arr = [-2, -1, 1, 2]
+rtol = 1e-6
+atol = 1e-3
+max_step = 0.001
+x_range = [0, 1]
+
+sol_dict = {}
+
+for y0 in y0_arr:
+    sol = solve_ivp(f, x_range, [y0], method="DOP853", rtol=rtol, atol=atol, max_step=max_step)
+
+    ax.plot(sol.t, sol.y[0], label=f"$y_0 = $ {y0}", lw=1.0)
+    ax.set_xlim(0, 1)
+    ax.set_ylim(-3, 10)
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$y$")
+    sol_dict[y0] = sol
+
+plt.legend()
+
+```
+
+### Porównanie błędów - błąd bezwzględny
+
+```{python}
+#| echo: false
+
+
+fig, ax = plt.subplots(dpi=200)
+
+for y0 in y0_arr:
+    solution = sol_dict[y0]
+
+    x = solution.t
+
+    y_analytical = fa(x, y0)
+    y_numerical = solution.y[0]
+
+    
+
+    ax.plot(x, abs(y_analytical - y_numerical), label=f"$y_0 = $ {y0}", lw=1.0)
+
+    ax.set_xlim(0, 1)
+    ax.set_yscale("log")
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$|y_{analytical} - y_{numerical}|$")
+    
+plt.legend()
+```
+### Błąd względny
+
+```{python}
+#| echo: false
+
+
+fig, ax = plt.subplots(dpi=200)
+
+for y0 in y0_arr:
+    solution = sol_dict[y0]
+
+    x = solution.t
+
+    y_analytical = fa(x, y0)
+    y_numerical = solution.y[0]
+
+    
+
+    ax.plot(x, abs((y_analytical - y_numerical) / y_analytical), label=f"$y_0 = $ {y0}", lw=1.0)
+
+    ax.set_yscale("log")
+    ax.set_xlabel("$x$")
+    ax.set_ylabel("$|(y_{analytical} - y_{numerical}) / y_{analytical}|$ [%]")
+    
+plt.legend()
+```

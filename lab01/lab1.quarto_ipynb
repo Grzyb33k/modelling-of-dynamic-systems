@@ -1,0 +1,75 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "---\n",
+        "title: \"Laboratorium 1\"\n",
+        "subtitle: \"Modelowanie układów dynamicznych\"\n",
+        "author: \"Kamil Kania\"\n",
+        "date: today\n",
+        "format:\n",
+        "  html:\n",
+        "    toc: true\n",
+        "    theme: cosmo\n",
+        "    code-fold: false\n",
+        "  pdf:\n",
+        "    pdf-engine: pdflatex\n",
+        "    documentclass: article\n",
+        "    geometry:\n",
+        "      - top=20mm\n",
+        "      - bottom=20mm\n",
+        "      - left=20mm\n",
+        "      - right=20mm\n",
+        "    colorlinks: true\n",
+        "execute:\n",
+        "  echo: true\n",
+        "  warning: false\n",
+        "---\n",
+        "\n",
+        "# Zadanie 1\n",
+        "\n",
+        "## Wzór\n",
+        "$$\n",
+        "y(x) = \\frac{-1}{x - \\frac{1}{y_0}}\n",
+        "$$"
+      ],
+      "id": "ba368830"
+    },
+    {
+      "cell_type": "code",
+      "metadata": {},
+      "source": [
+        "#| include: false\n",
+        "\n",
+        "import numpy as np\n",
+        "import matplotlib.pyplot as plt\n",
+        "\n",
+        "def f(x, y0):\n",
+        "    return 1 / (x - 1 / y0)\n"
+      ],
+      "id": "85e7c1df",
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "markdown",
+      "metadata": {},
+      "source": [
+        "# Zadanie 2"
+      ],
+      "id": "5f3c3998"
+    }
+  ],
+  "metadata": {
+    "kernelspec": {
+      "name": "python3",
+      "language": "python",
+      "display_name": "Python 3 (ipykernel)",
+      "path": "/home/kamil/Documents/FT/sem9/mud/lab/.pixi/envs/default/share/jupyter/kernels/python3"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 5
+}
