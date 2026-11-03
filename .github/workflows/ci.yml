@@ -23,6 +23,9 @@ jobs:
         with:
           pixi-version: v0.77.0
 
+      - name: Install TinyTex
+        run: pixi run quarto install tinytex
+
       - name: Test all labs
         run: pixi run test
 
