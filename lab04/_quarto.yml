@@ -1,0 +1,18 @@
+title: "Laboratorium 4"
+subtitle: "Modelowanie Układów Dynamicznych"
+author: "Kamil Kania"
+date: today
+
+format:
+  pdf:
+    pdf-engine: pdflatex
+    documentclass: article
+    papersize: a4
+    fontsize: 11pt
+    geometry:
+      - margin=2.5cm
+    colorlinks: true
+    toc: true
+    number-sections: true
+
+jupyter: python3
