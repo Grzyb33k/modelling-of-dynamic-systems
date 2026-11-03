@@ -16,3 +16,5 @@ format:
     number-sections: true
 
 jupyter: python3
+execute:
+  enabled: true
