@@ -218,3 +218,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Pdf created by quarto
+/lab*/*.pdf
+!/lab*/docs/*.pdf
